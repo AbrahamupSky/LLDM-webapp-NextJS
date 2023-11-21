@@ -1,9 +1,11 @@
 "use client"
 import { useForm } from "react-hook-form"
 import { toast } from 'sonner'
+import { useRouter } from "next/navigation";
 
 function RegisterPage() {
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const router = useRouter()
   
   const onSubmit = handleSubmit(async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -42,9 +44,12 @@ function RegisterPage() {
   
       // Verificar si la respuesta contiene datos antes de intentar analizarla
       const isJSONResponse = res.headers.get('content-type')?.includes('application/json');
-      const resJSON = isJSONResponse ? await res.json() : null;
+
+      if (res.ok){
+        router.push('/auth/login')
+      }
   
-      console.log(resJSON);
+      console.log(res);
     } catch (error) {
       console.error('Error al procesar la respuesta:', error);
     }
