@@ -19,14 +19,14 @@ model User {
   email String @unique
   domicilio String
   colonia String
-  telefono Int
+  telefono String
   ocupacion String?
-  zipcode Int?
+  zipcode String?
   estudios String?
 
   emergencia String
   parentesco String
-  numero Int
+  numero String
   
   password String
 
