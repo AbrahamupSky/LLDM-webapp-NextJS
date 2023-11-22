@@ -1,12 +1,12 @@
 "use client"
-import { useForm } from "react-hook-form"
+import { usehtmlForm } from "react-hook-htmlForm"
 import { toast } from 'sonner'
 import { useRouter } from "next/navigation"
 import { useEffect } from 'react'
 import Datepicker from 'flowbite-datepicker/Datepicker'
 
 function RegisterPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, htmlFormState: { errors } } = usehtmlForm()
   const router = useRouter()
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function RegisterPage() {
 
     if (datepickerEl) {
       new Datepicker(datepickerEl, {
-        format: 'yyyy-mm-dd',
+        htmlFormat: 'yyyy-mm-dd',
         language: 'es',
       });
     } else {
@@ -73,10 +73,10 @@ function RegisterPage() {
   return (
     <div class="p-4 flex items-center justify-center">
       <div class="container max-w-screen-lg mx-auto">
-        <div>
-        <h1 className="text-3xl text-slate-200 font-bold mb-4">Registrar usuario</h1>
+        <form onSubmit={onSubmit}>
 
           <div class="bg-gray-800 rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+          <h1 className="text-3xl text-slate-200 font-bold mb-4">Registrar usuario</h1>
             <div class="gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3 mb-10">
               <div class="text-gray-600 mb-5">
                 <p class="font-medium text-lg text-white">Datos personales</p>
@@ -86,7 +86,7 @@ function RegisterPage() {
               <div class="lg:col-span-2">
                 <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                   <div class="md:col-span-2">
-                    <label for="full_name">Nombres</label>
+                    <label htmlFor="full_name">Nombres</label>
                     <input 
                       placeholder='Cristiano Ronaldo' 
                       type="text" 
@@ -97,7 +97,7 @@ function RegisterPage() {
                   </div>
                   
                   <div class="md:col-span-2">
-                    <label for="full_name">Apellidos</label>
+                    <label htmlFor="full_name">Apellidos</label>
                     <input 
                       placeholder='dos Santos Aveiro' 
                       type="text" 
@@ -108,7 +108,7 @@ function RegisterPage() {
                   </div>
 
                   <div class="md:col-span-1">
-                    <label for="full_name">Nombre de usuario</label>
+                    <label htmlFor="full_name">Nombre de usuario</label>
                     <input 
                       placeholder='El Bicho' 
                       type="text" 
@@ -119,7 +119,7 @@ function RegisterPage() {
                   </div>
 
                   <div class="md:col-span-5">
-                    <label for="email">Correo Electronico</label>
+                    <label htmlFor="email">Correo Electronico</label>
                     <input 
                       type="text" 
                       name="email" 
@@ -129,7 +129,7 @@ function RegisterPage() {
                   </div>
 
                   <div class="md:col-span-3">
-                    <label for="address">Domicilio</label>
+                    <label htmlFor="address">Domicilio</label>
                     <input 
                       placeholder="Algun lugar 777"  
                       type="text" 
@@ -140,7 +140,7 @@ function RegisterPage() {
                   </div>
 
                   <div class="md:col-span-2">
-                    <label for="city">Colonia</label>
+                    <label htmlFor="city">Colonia</label>
                     <input 
                       placeholder="Hermosa Provincia" 
                       type="text" 
@@ -151,7 +151,7 @@ function RegisterPage() {
                   </div>
 
                   <div class="md:col-span-2">
-                    <label for="country">Telefono</label>
+                    <label htmlFor="country">Telefono</label>
                     <input 
                       name="country" 
                       id="country" 
@@ -161,7 +161,7 @@ function RegisterPage() {
                   </div>
 
                   <div class="md:col-span-2">
-                    <label for="state">Ocupación</label>
+                    <label htmlFor="state">Ocupación</label>
                     <input 
                       name="state" 
                       id="state" 
@@ -171,7 +171,7 @@ function RegisterPage() {
                   </div>
 
                   <div class="md:col-span-1">
-                    <label for="zipcode">Grado de Estudios</label>
+                    <label htmlFor="zipcode">Grado de Estudios</label>
                     <input 
                       type="text" 
                       name="zipcode" 
@@ -244,7 +244,7 @@ function RegisterPage() {
                   </div>
 
                   <div class="md:col-span-1">
-                    <label for="country">Telefono</label>
+                    <label htmlFor="country">Telefono</label>
                     <input 
                       name="country" 
                       id="country" 
@@ -260,7 +260,7 @@ function RegisterPage() {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )
