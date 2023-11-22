@@ -1,11 +1,26 @@
 "use client"
 import { useForm } from "react-hook-form"
 import { toast } from 'sonner'
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
+import { useEffect } from 'react'
+import Datepicker from 'flowbite-datepicker/Datepicker'
 
 function RegisterPage() {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const router = useRouter()
+
+  useEffect(() => {
+    const datepickerEl = document.getElementById('datepickerId');
+
+    if (datepickerEl) {
+      new Datepicker(datepickerEl, {
+        format: 'yyyy-mm-dd',
+        language: 'es',
+      });
+    } else {
+      console.error("Element with ID 'datepickerId' not found");
+    }
+  }, []);
   
   const onSubmit = handleSubmit(async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -53,162 +68,200 @@ function RegisterPage() {
     } catch (error) {
       console.error('Error al procesar la respuesta:', error);
     }
-  });  
+  })
   
   return (
-    <div className="h-[calc(100vh-7rem)] flex justify-center ">
-      <form onSubmit={onSubmit} className="w-1/4">
-        <h1 className="text-3xl font-bold mb-5">Registro</h1>
+    <div class="p-4 flex items-center justify-center">
+      <div class="container max-w-screen-lg mx-auto">
+        <div>
+        <h1 className="text-3xl text-slate-200 font-bold mb-4">Registrar usuario</h1>
 
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Nombres</label>
-        <input type="text" placeholder="Nombres"
-          {...(register("nombres", {
-            required: {
-              value: true,
-              message: 'El nombre es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.nombres && <p className="text-red-500 text-xs">{errors.nombres.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm mt-3">Apellidos</label>
-        <input type="text" placeholder="Apellidos"
-          {...(register("apellidos", {
-            required: {
-              value: true,
-              message: 'El apellido es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.apellidos && <p className="text-red-500 text-xs">{errors.apellidos.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Nombre de Usuario</label>
-        <input type="text" placeholder="Username"
-          {...(register("username", {
-            required: {
-              value: true,
-              message: 'El nombre de usuario es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.username && <p className="text-red-500 text-xs">{errors.username.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Correo Electronico</label>
-        <input type="email" placeholder="Correo Electronico"
-          {...(register("email", {
-            required: {
-              value: true,
-              message: 'El correo electronico es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Domicilio</label>
-        <input type="text" placeholder="Domicilio"
-          {...(register("domicilio", {
-            required: {
-              value: true,
-              message: 'El domicilio es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.domicilio && <p className="text-red-500 text-xs">{errors.domicilio.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Colonia</label>
-        <input type="text" placeholder="Colonia"
-          {...(register("colonia", {
-            required: {
-              value: true,
-              message: 'La colonia es requerida'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.colonia && <p className="text-red-500 text-xs">{errors.colonia.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Telefono</label>
-        <input type="number" placeholder="Telefono"
-          {...(register("telefono", {
-            required: {
-              value: true,
-              message: 'El telefono es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.telefono && <p className="text-red-500 text-xs">{errors.telefono.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Contraseña</label>
-        <input type="password" placeholder="Contraseña"
-          {...(register("password", {
-            required: {
-              value: true,
-              message: 'La contraseña es requerida'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Repetir contraseña</label>
-        <input type="password" placeholder="Contraseña 2 ahora es personal"
-          {...(register("confirmPassword", {
-            required: {
-              value: true,
-              message: 'La contraseña es requerida'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Contacto de emergencia</label>
-        <input type="text" placeholder="Contacto de emergencia"
-          {...(register("emergencia", {
-            required: {
-              value: true,
-              message: 'El contacto de emergencia es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.emergencia && <p className="text-red-500 text-xs">{errors.emergencia.message}</p>}
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Parentesco</label>
-        <input type="text" placeholder="Parentesco"
-          {...(register("parentesco", {
-            required: {
-              value: true,
-              message: 'El parentesco es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.parentesco && <p className="text-red-500 text-xs">{errors.parentesco.message}</p>}
-        
-        
-        <label htmlFor="" className="text-slate-500 mb-1 block text-sm">Numero de emergencia</label>
-        <input type="number" placeholder="Telefono de emergencia"
-          {...(register("numero", {
-            required: {
-              value: true,
-              message: 'El telefono de emergencia es requerido'
-            }
-          }))}
-          className="p-3 rounded block mb-2 bg-slate-900 text-slate-300 w-full"
-        />
-        {errors.numero && <p className="text-red-500 text-xs">{errors.numero.message}</p>}
+          <div class="bg-gray-800 rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+            <div class="gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3 mb-10">
+              <div class="text-gray-600 mb-5">
+                <p class="font-medium text-lg text-white">Datos personales</p>
+                <p className="text-white">Por favor llena todos los campos</p>
+              </div>
 
-        <button className="w-full bg-blue-500 text-white p-3 rounded-lg mt-4">
-          Registrarse
-        </button>
-      </form>
+              <div class="lg:col-span-2">
+                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                  <div class="md:col-span-2">
+                    <label for="full_name">Nombres</label>
+                    <input 
+                      placeholder='Cristiano Ronaldo' 
+                      type="text" 
+                      name="full_name" 
+                      id="full_name" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                    />
+                  </div>
+                  
+                  <div class="md:col-span-2">
+                    <label for="full_name">Apellidos</label>
+                    <input 
+                      placeholder='dos Santos Aveiro' 
+                      type="text" 
+                      name="full_name" 
+                      id="full_name" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div class="md:col-span-1">
+                    <label for="full_name">Nombre de usuario</label>
+                    <input 
+                      placeholder='El Bicho' 
+                      type="text" 
+                      name="full_name" 
+                      id="full_name" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div class="md:col-span-5">
+                    <label for="email">Correo Electronico</label>
+                    <input 
+                      type="text" 
+                      name="email" 
+                      id="email" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="email@correo.com"
+                    />
+                  </div>
+
+                  <div class="md:col-span-3">
+                    <label for="address">Domicilio</label>
+                    <input 
+                      placeholder="Algun lugar 777"  
+                      type="text" 
+                      name="address" 
+                      id="address" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div class="md:col-span-2">
+                    <label for="city">Colonia</label>
+                    <input 
+                      placeholder="Hermosa Provincia" 
+                      type="text" 
+                      name="city" 
+                      id="city" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div class="md:col-span-2">
+                    <label for="country">Telefono</label>
+                    <input 
+                      name="country" 
+                      id="country" 
+                      placeholder="3333333333" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div class="md:col-span-2">
+                    <label for="state">Ocupación</label>
+                    <input 
+                      name="state" 
+                      id="state" 
+                      placeholder="Estudiante" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div class="md:col-span-1">
+                    <label for="zipcode">Grado de Estudios</label>
+                    <input 
+                      type="text" 
+                      name="zipcode" 
+                      id="zipcode" 
+                      class="transition-all items-center bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Universidad"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="text-white">Contraseña</label>
+                    <input  
+                      type="password" 
+                      className="transition-all items-center bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                      placeholder="**************" />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="text-white">Repetir Contraseña</label>
+                    <input  
+                      type="password" 
+                      className="transition-all items-center bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                      placeholder="**************" 
+                    />
+                  </div>
+
+                  <div className="md:col-span-1">
+                    <label className="text-white">Fecha de Nacimiento</label>
+                    
+                    <div class="relative max-w-sm">
+                      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                          </svg>
+                      </div>
+                      <input 
+                        autoComplete="off" 
+                        id="datepickerId" 
+                        datepicker-buttons 
+                        type="text" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date"
+                      />
+                    </div>
+
+                  </div>
+
+                  <div className="md:col-span-5">
+                    <hr className="my-5 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
+                  </div>
+
+                  <div className="md:col-span-5">
+                    <h1 className='text-white text-2xl font-bold mb-4'>Contacto de Emergencia</h1>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="text-white">Contacto de Emergencia</label>
+                    <input  
+                      type="text" 
+                      className="transition-all items-center bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                      placeholder="Leonel Messi" 
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="text-white">Parentesco</label>
+                    <input  
+                      type="text" 
+                      className="transition-all items-center bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                      placeholder="Padre / Madre" 
+                    />
+                  </div>
+
+                  <div class="md:col-span-1">
+                    <label for="country">Telefono</label>
+                    <input 
+                      name="country" 
+                      id="country" 
+                      placeholder="3333333333" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                  </div>
+
+                </div>
+                <div className="w-full mt-5 bg-blue-700 hover:bg-blue-500 text-black font-bold py-2 px-4 rounded text-center cursor-pointer">
+                  <button className="text-white">Registrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

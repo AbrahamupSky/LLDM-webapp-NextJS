@@ -3,10 +3,11 @@ module.exports = {
   content: [
     "./public/**/*.html",
     "./pages/**/*.{ts,tsx}",
-    "./node_modules/flowbite-react/**/*.js",
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    "./node_modules/flowbite-react/**/*.js",
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    "./node_modules/tailwind-datepicker-react/dist/**/*.js",
   ],
   theme: {
     extend: {
