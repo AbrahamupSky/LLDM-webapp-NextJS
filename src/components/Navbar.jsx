@@ -12,12 +12,12 @@ function Navbar() {
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
             <Image 
-              src="/logo.png" 
-              alt="3er grupo de Jovenes - Logo" 
-              width={40} 
-              height={40}
+              src="/miniLogo.png" 
+              alt="Gruas Perez - Logo" 
+              width={60} 
+              height={60}
             />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">3er Grupo de Jovenes</span>
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Gruas Perez</span>
           </Link>
 
           <button

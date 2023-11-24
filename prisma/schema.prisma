@@ -18,20 +18,13 @@ model User {
   username String @unique
   email String @unique
   domicilio String
-  colonia String
+  ss String
   telefono String
   ocupacion String?
   zipcode String?
   estudios String?
-
-  emergencia String
-  parentesco String
-  numero String
   
   password String
-
-  fechaNacim DateTime?
-  actividadesExtra String?
 
   createdAt DateTime? @default(now())
 }

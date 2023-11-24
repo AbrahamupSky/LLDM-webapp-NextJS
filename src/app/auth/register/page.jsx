@@ -1,26 +1,14 @@
 "use client"
-import { usehtmlForm } from "react-hook-htmlForm"
+import { useState } from "react"
 import { toast } from 'sonner'
 import { useRouter } from "next/navigation"
 import { useEffect } from 'react'
 import Datepicker from 'flowbite-datepicker/Datepicker'
+import { useForm } from 'react-hook-form'
 
 function RegisterPage() {
-  const { register, handleSubmit, htmlFormState: { errors } } = usehtmlForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
   const router = useRouter()
-
-  useEffect(() => {
-    const datepickerEl = document.getElementById('datepickerId');
-
-    if (datepickerEl) {
-      new Datepicker(datepickerEl, {
-        htmlFormat: 'yyyy-mm-dd',
-        language: 'es',
-      });
-    } else {
-      console.error("Element with ID 'datepickerId' not found");
-    }
-  }, []);
   
   const onSubmit = handleSubmit(async (data) => {
     if (data.password !== data.confirmPassword) {
@@ -150,7 +138,7 @@ function RegisterPage() {
                     />
                   </div>
 
-                  <div class="md:col-span-2">
+                  <div class="md:col-span-1">
                     <label htmlFor="country">Telefono</label>
                     <input 
                       name="country" 
@@ -160,14 +148,24 @@ function RegisterPage() {
                     />
                   </div>
 
-                  <div class="md:col-span-2">
-                    <label htmlFor="state">Ocupación</label>
+                  <div class="md:col-span-1">
+                    <label htmlFor="country">Whatsapp</label>
                     <input 
-                      name="state" 
-                      id="state" 
-                      placeholder="Estudiante" 
+                      name="country" 
+                      id="country" 
+                      placeholder="3333333333" 
                       class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
+                  </div>
+
+                  <div class="md:col-span-3">
+                    <label htmlFor="state">Ocupación</label>
+                    <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <option selected>Selecciona un Rol</option>
+                      <option value="US">Administrador</option>
+                      <option value="CA">Operador</option>
+                      <option value="FR">Técnico</option>
+                    </select>
                   </div>
 
                   <div class="md:col-span-1">
@@ -195,26 +193,6 @@ function RegisterPage() {
                       className="transition-all items-center bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                       placeholder="**************" 
                     />
-                  </div>
-
-                  <div className="md:col-span-1">
-                    <label className="text-white">Fecha de Nacimiento</label>
-                    
-                    <div class="relative max-w-sm">
-                      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                          </svg>
-                      </div>
-                      <input 
-                        autoComplete="off" 
-                        id="datepickerId" 
-                        datepicker-buttons 
-                        type="text" 
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date"
-                      />
-                    </div>
-
                   </div>
 
                   <div className="md:col-span-5">
