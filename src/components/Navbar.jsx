@@ -1,10 +1,34 @@
 "use client"
 import Link from "next/link"
 import Image from "next/image"
-import { Collapse } from 'flowbite'
+import Swal from 'sweetalert2'
 import { signOut } from "next-auth/react"
 
 function Navbar() {
+  const handleSignOut = () => {
+    Swal.fire({
+      title: 'Cerrando sesion',
+      text: '¿Estas seguro de cerrar sesion?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, cerrar sesion'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "success",
+          title: "Sesion Cerrada",
+          text: "Hasta pronto!",
+          showConfirmButton: false,
+          timer: 1500
+        }),
+        setTimeout(() => {
+          signOut()
+        }, 1500)
+      }
+    })
+  }
 
   return (
     <>
@@ -63,13 +87,14 @@ function Navbar() {
                     Iniciar sesion</Link>
               </li>
               <li>
-                <Link 
-                  className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  onClick={() => signOut()}
-                  href="/auth/login" 
-                >
+              <Link
+                href="/auth/login"
+                className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                <div onClick={handleSignOut}>
                   Cerrar sesion
-                </Link>
+                </div>
+              </Link>
               </li>
             </ul>
           </div>

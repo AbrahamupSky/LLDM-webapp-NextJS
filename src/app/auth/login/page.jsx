@@ -12,20 +12,27 @@ function LoginPage() {
 
   const router = useRouter()
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data)
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: data.email,
-      password: data.password
-    })
-
-    if (res.error) {
-      setError(toast.error(res.error))
-    } else {
-      router.push("/")
+    try {
+      console.log(data)
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      })
+  
+      if (res.error) {
+        setError(toast.error(res.error))
+      } else {
+        console.log("Before redirect")
+        router.push("/")
+        console.log("After redirect")
+      }
+  
+      console.log(res)
+    } catch (error) {
+      console.error("Error during sign-in:", error)
+      setError(toast.error("Error during sign-in"))
     }
-
-    console.log(res)
   })
   
 
